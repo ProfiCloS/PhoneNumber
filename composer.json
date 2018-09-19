@@ -12,7 +12,7 @@
             "email": "info@profiservices.cloud"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "classmap": ["src/"]
     },
