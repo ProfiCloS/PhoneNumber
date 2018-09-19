@@ -1,4 +1,4 @@
-[![GitHub version](https://badge.fury.io/gh/ProfiCloS%PhoneNumber.svg)](http://badge.fury.io/gh/ProfiCloS%PhoneNumber)
+[![GitHub version](https://badge.fury.io/gh/proficlos%2Fphonenumber.svg)](https://badge.fury.io/gh/proficlos%2Fphonenumber)
 [![travis-ci.com](https://travis-ci.com/ProfiCloS/PhoneNumber.svg?branch=master)](https://travis-ci.com/ProfiCloS/PhoneNumber)
 [![codecov.io](https://codecov.io/github/ProfiCloS/PhoneNumber/coverage.svg?branch=master)](https://codecov.io/github/ProfiCloS/PhoneNumber?branch=master)
 
