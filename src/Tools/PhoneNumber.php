@@ -86,7 +86,7 @@ class PhoneNumber
 	{
 		$obj = new static;
 		$obj->setCountry($country);
-		$obj->setNumber(str_replace(' ', '', $phoneNumber));
+		$obj->setNumber($phoneNumber);
 		return $obj;
 	}
 
@@ -104,7 +104,7 @@ class PhoneNumber
      * @throws PhoneNumberException
      */
 	public static function isPhone( $phone, $country = null) {
-		$phone = str_replace(' ', '', $phone);
+		$phone = self::clean($phone);
 		if(!self::isCountrySupported($country)) {
 			throw new PhoneNumberException(self::$messages['NOT_SUPPORTED'] . "'{$country}'");
 		}
@@ -149,6 +149,7 @@ class PhoneNumber
 		if(!self::isPhone($number)) {
 			throw new PhoneNumberException(self::$messages['BAD_NUMBER']);
 		}
+		$number = self::clean($number);
 		$parts = $this->parseNumber($number);
 		$this->setAreaPart($parts['area']);
 		$this->setNumberPart($parts['number']);
@@ -184,6 +185,7 @@ class PhoneNumber
      */
 	protected function parseNumber($number) {
 		$parts = array();
+		$number = self::clean($number);
 
 		if(!$this->country) {
 			$this->country = $this->tryGetCountryFromNumber($number);
@@ -191,10 +193,10 @@ class PhoneNumber
 
 		if (preg_match(self::$areaReg[$this->country], $number, $matches)) {
 			$parts['area'] = $matches[0];
-			$parts['number'] = str_replace( [ $matches[0], ' ' ], '', $number);
+			$parts['number'] = str_replace( $matches[0], '', $number);
 		} else {
 			$parts['area'] = self::$countryAreas[$this->country];
-			$parts['number'] = str_replace(' ', '', $number);
+			$parts['number'] = $number;
 		}
 
 		return $parts;
@@ -238,7 +240,7 @@ class PhoneNumber
      * @throws PhoneNumberException
      */
 	public function setFormat($format) {
-		if(!in_array( $format, self::$formats, true ) ) {
+		if(!\in_array( $format, self::$formats, true ) ) {
 			throw new PhoneNumberException( 'Use format from class' );
 		}
 		$this->format = $format;
@@ -262,6 +264,10 @@ class PhoneNumber
 			default:
 			    return '';
 		}
+	}
+
+	private static function clean($number) {
+		return preg_replace('~[^\+\w]~', '', $number);
 	}
 
 }

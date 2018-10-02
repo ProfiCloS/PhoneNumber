@@ -34,6 +34,18 @@ class validationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('123') );
         $this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('958 656') );
 
+		$this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('7776g66555'), '7776g66555' );
+		$this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('7s77001000'), '7s77001000' );
+		$this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('00420777001000h'), '00420777001000h' );
+		$this->assertFalse( \ProfiCloS\Tools\PhoneNumber::isPhone('a+420777001000'), 'a+420777001000' );
+
+    }
+
+    public function testInvalidChars()
+    {
+
+        $this->assertTrue( \ProfiCloS\Tools\PhoneNumber::isPhone('608 500 000') );
+
     }
 
 }
